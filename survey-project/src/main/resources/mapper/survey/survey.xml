@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sample.survey.mapper.SurveyMapper">
+	
+	<select id="selectSurvey" parameterType="map" resultType="SurveyDto">
+	    SELECT * 
+	      FROM TB_SURVEY
+	  ORDER BY CREATED_AT DESC
+	     LIMIT #{offset}, #{limit};
+	</select>
+
+	<select id="findByUuid" parameterType="map" resultType="SurveyDto">
+	    SELECT * 
+	      FROM TB_SURVEY
+	     WHERE UUID = #{uuid}
+	</select>
+
+	<select id="findQuestionsByUuid" resultType="string">
+		SELECT QUESTION 
+		  FROM TB_SURVEY_QUESTION 
+		 WHERE UUID = #{uuid}
+	</select>
+	
+	<!-- 설문 응답 데이터 삽입 -->
+    <insert id="insertSurveyResponse" parameterType="map">
+        INSERT INTO TB_SURVEY_ANSWER (
+         UUID
+        , RESPONDENT_NAME
+        , RESPONDENT_EMAIL
+        , RESPONSE_TIME
+        , ANSWER)
+        VALUES (
+          #{uuid}
+        , #{respondentName}
+        , #{respondentEmail}
+        , CURRENT_TIMESTAMP
+        ,  #{answer}
+        )
+    </insert>
+
+	
+</mapper>

@@ -1,0 +1,169 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+  <title th:text="${title}">설문지</title>
+</head>
+<body>
+    <h1 th:text="${title}">설문지</h1>
+    <form action="/submit" method="post">
+        <label for="question1">질문 1:</label>
+        <input type="text" id="question1" name="question1">
+        <button type="submit">제출</button>
+    </form>
+    <div th:utext="${survey}">Survey</div>
+    <br/>
+    <div th:utext="${description}">Survey Content</div>
+    
+</html>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Survey Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .form-group .options {
+            margin-top: 10px;
+        }
+
+        .form-group .options label {
+            margin-right: 20px;
+            font-weight: normal;
+            color: #555;
+        }
+
+        .submit-btn {
+            background-color: #4285f4;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background-color: #3367d6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1 th:text="${title}">Survey Form</h1>
+            <p th:text="${description}">A simple and modern survey form</p>
+        </div>
+        <form action="/submit" method="post">
+            <!-- 이름 -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" th:value="${name}" required>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" th:value="${email}" required>
+            </div>
+
+            <!-- 나이 -->
+            <div class="form-group">
+                <label for="age">Age Group</label>
+                <select id="age" name="age" required>
+                    <option value="" disabled selected>Select your age group</option>
+                    <option value="18-25" th:selected="${age == '18-25'}">18-25</option>
+                    <option value="26-35" th:selected="${age == '26-35'}">26-35</option>
+                    <option value="36-45" th:selected="${age == '36-45'}">36-45</option>
+                    <option value="46+" th:selected="${age == '46+'}">46+</option>
+                </select>
+            </div>
+
+            <!-- 성별 -->
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="options">
+                    <label><input type="radio" name="gender" value="male" th:checked="${gender == 'male'}"> Male</label>
+                    <label><input type="radio" name="gender" value="female" th:checked="${gender == 'female'}"> Female</label>
+                    <label><input type="radio" name="gender" value="other" th:checked="${gender == 'other'}"> Other</label>
+                </div>
+            </div>
+
+            <!-- 의견 -->
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea id="comments" name="comments" placeholder="Share your thoughts" th:text="${comments}"></textarea>
+            </div>
+
+            <!-- 제출 -->
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

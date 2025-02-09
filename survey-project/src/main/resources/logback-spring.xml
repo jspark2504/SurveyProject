@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<springProperty name="log-pattern" source="log-pattern" />
+	<springProperty name="log-dir" source="log-dir" />
+	<springProperty name="log-maxHistory" source="log-maxHistory" />
+	<springProperty name="log-path-home" source="log-path-home" />
+	
+	<property name="FILE" value="survey-project" />
+	<property name="DIR" value="${log-dir}" />
+	<property name="LOGPATH" value="${log-path-home}" />
+    <property name="CONSOLE_LOG_PATTERN" value="%white(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) [%green(%t)] %yellow(%logger{1}): %msg%n%throwable" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	        <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+	    </encoder>
+	</appender>
+
+	<appender name="RollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGPATH}/${DIR}/${FILE}.log</file>
+		<encoder>
+        	<pattern>${log-pattern}</pattern>
+    	</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGPATH}/${DIR}/%d{yyyyMMdd,aux}/${FILE}_%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+				<maxHistory>${log-maxHistory}</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<!-- LOG everything at INFO level -->
+	<root level="debug">
+		<appender-ref ref="RollingFile" />
+		<appender-ref ref="Console" />
+	</root>
+	
+</configuration>

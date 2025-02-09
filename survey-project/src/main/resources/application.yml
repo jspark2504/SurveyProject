@@ -1,0 +1,48 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: survey-project
+  profiles:
+    active: default # 활성화할 프로파일 설정
+  main:
+    allow-bean-definition-overriding: true
+   
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    jdbc-url: jdbc:mariadb://localhost:33306/survey_db?allowMultiQueries=true
+    username: survey
+    password: survey
+  batch:
+    jdbc:
+      initialize-schema: always
+    hikari:
+      maximum-pool-size: 10
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+mybatis:
+  type-aliases-package: com.sample.*
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    
+log-pattern: "%d{ISO8601, GMT+9} %-5level [%thread] %logger{1} - %msg%n%throwable"
+#log-pattern: "%white(%d{ISO8601, GMT+9}) %highlight(%-5level) [%green(%t)] %yellow(%C{1.}): %msg%n%throwable"
+log-path-home: "C:/dev"
+log-dir: "/logs/survey"
+log-maxHistory: 168
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
